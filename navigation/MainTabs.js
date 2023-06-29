@@ -1,6 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+import { Text } from "react-native";
 
 import ScorecardScreen from "../screens/ScorecardScreen";
 import LiveScreen from "../screens/LiveScreen";
@@ -10,7 +11,7 @@ import Colors from "../constants/Colors";
 
 const Tab = createBottomTabNavigator();
 
-function MyTabs() {
+function MainTabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -38,6 +39,28 @@ function MyTabs() {
           },
           null,
         ],
+        tabBarLabel: ({ focused, color }) => {
+          let label;
+
+          switch (route.name) {
+            case "Scorecard":
+              label = "SCORECARD";
+              break;
+            case "Live":
+              label = "LIVE";
+              break;
+            case "Rules":
+              label = "RULES";
+              break;
+            case "Settings":
+              label = "SETTINGS";
+              break;
+            default:
+              break;
+          }
+
+          return <Text style={{ color, fontSize: 10 }}>{label}</Text>;
+        },
       })}
     >
       <Tab.Screen name="Scorecard" component={ScorecardScreen} />
@@ -48,4 +71,4 @@ function MyTabs() {
   );
 }
 
-export default MyTabs;
+export default MainTabs;
