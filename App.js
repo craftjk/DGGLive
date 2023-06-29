@@ -1,20 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import MainTabs from "./navigation/MainTabs";
+import LoadingScreen from "./screens/LoadingScreen";
 
 export default function App() {
+  const [isLoading, setLoading] = useState(true);
+
+  // Simulate an async operation (e.g., API call, DB read/write, etc.)
+  // In a real application, replace this with your async operation.
+  useEffect(() => {
+    const loadData = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // Wait for 2 seconds
+      setLoading(false); // Set loading to false when the operation is complete
+    };
+
+    loadData();
+  }, []);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <MainTabs />
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
