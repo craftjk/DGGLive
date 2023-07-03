@@ -1,7 +1,9 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { Text } from "react-native";
+import { moderateScale } from "react-native-size-matters";
 
 import ScorecardScreen from "../screens/ScorecardScreen";
 import LiveScreen from "../screens/LiveScreen";
@@ -12,9 +14,22 @@ import Colors from "../constants/Colors";
 const Tab = createBottomTabNavigator();
 
 function MainTabs() {
+  const isDarkMode = useSelector((state) => state.settings.isDarkMode);
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+        headerTitleAlign: "left",
+        headerStyle: {
+          backgroundColor: isDarkMode
+            ? Colors.grayscale[1]
+            : Colors.grayscale[8],
+        },
+        headerTintColor: isDarkMode ? Colors.white : Colors.black,
+        headerTitleStyle: {
+          fontWeight: "bold",
+          fontSize: moderateScale(21),
+        },
         tabBarIcon: ({ focused, color }) => {
           let iconName;
 
@@ -35,6 +50,9 @@ function MainTabs() {
         tabBarStyle: [
           {
             display: "flex",
+            backgroundColor: isDarkMode
+              ? Colors.grayscale[1]
+              : Colors.grayscale[8],
           },
           null,
         ],
@@ -59,7 +77,15 @@ function MainTabs() {
           }
 
           return (
-            <Text style={{ color, fontSize: 10, marginTop: -3 }}>{label}</Text>
+            <Text
+              style={{
+                color,
+                fontSize: moderateScale(10),
+                marginTop: moderateScale(-3),
+              }}
+            >
+              {label}
+            </Text>
           );
         },
       })}
