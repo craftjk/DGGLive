@@ -15,7 +15,7 @@ function MainTabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
+        tabBarIcon: ({ focused, color }) => {
           let iconName;
 
           if (route.name === "Scorecard") {
@@ -28,7 +28,7 @@ function MainTabs() {
             iconName = focused ? "ios-settings" : "ios-settings-outline";
           }
 
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return <Ionicons name={iconName} size={22} color={color} />;
         },
         tabBarActiveTintColor: Colors.primary.main,
         tabBarInactiveTintColor: Colors.grayscale[3],
@@ -58,7 +58,9 @@ function MainTabs() {
               break;
           }
 
-          return <Text style={{ color, fontSize: 10 }}>{label}</Text>;
+          return (
+            <Text style={{ color, fontSize: 10, marginTop: -3 }}>{label}</Text>
+          );
         },
       })}
     >
