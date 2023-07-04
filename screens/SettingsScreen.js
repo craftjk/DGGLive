@@ -3,17 +3,42 @@ import { View, Text, StyleSheet, SafeAreaView, Switch } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import { moderateScale } from "react-native-size-matters";
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from "react-native-popup-menu";
 
 import Colors from "../constants/Colors";
-import { SET_IS_DARK_MODE } from "../store/actions/settings";
+import {
+  SET_ACTIVE_LANGUAGE,
+  SET_IS_DARK_MODE,
+} from "../store/actions/settings";
 import { switchStyle } from "../constants/Styles";
 
 const iconSize = moderateScale(22);
+
+const textMap = {
+  Language: {
+    English: "Language",
+    Español: "Idioma",
+  },
+  "Dark Mode": {
+    English: "Dark Mode",
+    Español: "Modo Oscuro",
+  },
+  Feedback: {
+    English: "Feedback",
+    Español: "Comentario",
+  },
+};
 
 const SettingsScreen = () => {
   const dispatch = useDispatch();
 
   const isDarkMode = useSelector((state) => state.settings.isDarkMode);
+  const activeLanguage = useSelector((state) => state.settings.activeLanguage);
 
   return (
     <SafeAreaView
@@ -37,18 +62,95 @@ const SettingsScreen = () => {
               color: isDarkMode ? Colors.white : Colors.black,
             }}
           >
-            Language
+            {textMap["Language"][activeLanguage]}
           </Text>
           <View style={styles.spacer} />
           <View style={styles.rowRightElementContainer}>
-            <Text
-              style={{
-                ...styles.languageText,
-                color: isDarkMode ? Colors.white : Colors.black,
-              }}
-            >
-              English
-            </Text>
+            <Menu>
+              <MenuTrigger
+                text={activeLanguage || "English"}
+                customStyles={{
+                  triggerText: {
+                    ...styles.languageText,
+                    color: isDarkMode ? Colors.white : Colors.black,
+                  },
+                }}
+              />
+              <MenuOptions
+                optionsContainerStyle={{ borderRadius: moderateScale(20) }}
+              >
+                <MenuOption
+                  style={{
+                    ...styles.menuOption,
+                    backgroundColor: isDarkMode
+                      ? Colors.grayscale[1]
+                      : Colors.grayscale[8],
+                  }}
+                  onSelect={() => {
+                    dispatch({
+                      type: SET_ACTIVE_LANGUAGE,
+                      language: "English",
+                    });
+                  }}
+                >
+                  {activeLanguage === "English" ? (
+                    <Ionicons
+                      name={"md-checkmark"}
+                      size={moderateScale(18)}
+                      style={{ position: "absolute", left: 3 }}
+                      color={
+                        isDarkMode ? Colors.grayscale[5] : Colors.grayscale[3]
+                      }
+                    />
+                  ) : null}
+
+                  <Text
+                    style={{
+                      fontSize: moderateScale(18),
+                      color: isDarkMode ? Colors.white : Colors.black,
+                      marginLeft: moderateScale(16),
+                    }}
+                  >
+                    English
+                  </Text>
+                </MenuOption>
+                <MenuOption
+                  style={{
+                    ...styles.menuOption,
+                    backgroundColor: isDarkMode
+                      ? Colors.grayscale[1]
+                      : Colors.grayscale[8],
+                    borderBottomWidth: 0,
+                  }}
+                  onSelect={() => {
+                    dispatch({
+                      type: SET_ACTIVE_LANGUAGE,
+                      language: "Español",
+                    });
+                  }}
+                >
+                  {activeLanguage === "Español" ? (
+                    <Ionicons
+                      name={"md-checkmark"}
+                      size={moderateScale(22)}
+                      style={{ position: "absolute", left: 3 }}
+                      color={
+                        isDarkMode ? Colors.grayscale[5] : Colors.grayscale[3]
+                      }
+                    />
+                  ) : null}
+                  <Text
+                    style={{
+                      fontSize: moderateScale(18),
+                      color: isDarkMode ? Colors.white : Colors.black,
+                      marginLeft: moderateScale(16),
+                    }}
+                  >
+                    Español
+                  </Text>
+                </MenuOption>
+              </MenuOptions>
+            </Menu>
           </View>
         </View>
         <View style={styles.row}>
@@ -66,7 +168,7 @@ const SettingsScreen = () => {
                 color: isDarkMode ? Colors.white : Colors.black,
               }}
             >
-              Dark Mode
+              {textMap["Dark Mode"][activeLanguage]}
             </Text>
           </View>
           <View style={styles.spacer} />
@@ -104,7 +206,7 @@ const SettingsScreen = () => {
               color: isDarkMode ? Colors.white : Colors.black,
             }}
           >
-            Feedback
+            {textMap["Feedback"][activeLanguage]}
           </Text>
         </View>
         <View style={styles.spacer}></View>
@@ -115,7 +217,9 @@ const SettingsScreen = () => {
               color: isDarkMode ? Colors.white : Colors.black,
             }}
           >
-            Portfolio project by Kyle Craft
+            {activeLanguage === "English"
+              ? "Portfolio project by Kyle Craft"
+              : "Proyecto de cartera por Kyle Craft"}
           </Text>
           <Text
             style={{
@@ -123,7 +227,7 @@ const SettingsScreen = () => {
               color: isDarkMode ? Colors.grayscale[6] : Colors.black,
             }}
           >
-            Version 0.1.0
+            {activeLanguage === "English" ? "Version" : "Versión"} 0.1.0
           </Text>
         </View>
       </View>
@@ -177,6 +281,13 @@ const styles = StyleSheet.create({
   languageText: {
     fontSize: moderateScale(16),
     marginTop: moderateScale(3),
+  },
+  menuOption: {
+    padding: moderateScale(10),
+    borderBottomColor: Colors.grayscale[3],
+    borderBottomWidth: 1,
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 

@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { PersistGate } from "redux-persist/integration/react";
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 import { NavigationContainer } from "@react-navigation/native";
+import { MenuProvider } from "react-native-popup-menu";
 
 import MainTabs from "./navigation/MainTabs";
 import LoadingScreen from "./screens/LoadingScreen";
@@ -45,10 +46,12 @@ export default function App() {
   }
 
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <MainTabs />
-      </NavigationContainer>
-    </Provider>
+    <MenuProvider>
+      <Provider store={store}>
+        <NavigationContainer>
+          <MainTabs />
+        </NavigationContainer>
+      </Provider>
+    </MenuProvider>
   );
 }
