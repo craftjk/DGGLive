@@ -54,7 +54,9 @@ function MainTabs() {
                 color: isDarkMode ? Colors.white : Colors.black,
               }}
             >
-              {textMap[children][activeLanguage]}
+              {children === "Rules" && activeLanguage === "English" // kc_todo refactor this
+                ? "Official Rules"
+                : textMap[children][activeLanguage]}
             </Text>
           );
         },
