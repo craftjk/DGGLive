@@ -30,7 +30,7 @@ const textMap = {
   },
   Feedback: {
     English: "Feedback",
-    Español: "Comentario",
+    Español: "Feedback",
   },
 };
 

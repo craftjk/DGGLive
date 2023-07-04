@@ -13,8 +13,28 @@ import Colors from "../constants/Colors";
 
 const Tab = createBottomTabNavigator();
 
+const textMap = {
+  Scorecard: {
+    English: "Scorecard",
+    Español: "Scorecard",
+  },
+  Live: {
+    English: "Live",
+    Español: "En Vivo",
+  },
+  Rules: {
+    English: "Rules",
+    Español: "Reglas",
+  },
+  Settings: {
+    English: "Settings",
+    Español: "Ajustes",
+  },
+};
+
 function MainTabs() {
   const isDarkMode = useSelector((state) => state.settings.isDarkMode);
+  const activeLanguage = useSelector((state) => state.settings.activeLanguage);
 
   return (
     <Tab.Navigator
@@ -25,10 +45,18 @@ function MainTabs() {
             ? Colors.grayscale[1]
             : Colors.grayscale[8],
         },
-        headerTintColor: isDarkMode ? Colors.white : Colors.black,
-        headerTitleStyle: {
-          fontWeight: "bold",
-          fontSize: moderateScale(21),
+        headerTitle: ({ children }) => {
+          return (
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: moderateScale(21),
+                color: isDarkMode ? Colors.white : Colors.black,
+              }}
+            >
+              {textMap[children][activeLanguage]}
+            </Text>
+          );
         },
         tabBarIcon: ({ focused, color }) => {
           let iconName;
@@ -61,16 +89,16 @@ function MainTabs() {
 
           switch (route.name) {
             case "Scorecard":
-              label = "SCORECARD";
+              label = textMap["Scorecard"][activeLanguage].toUpperCase();
               break;
             case "Live":
-              label = "LIVE";
+              label = textMap["Live"][activeLanguage].toUpperCase();
               break;
             case "Rules":
-              label = "RULES";
+              label = textMap["Rules"][activeLanguage].toUpperCase();
               break;
             case "Settings":
-              label = "SETTINGS";
+              label = textMap["Settings"][activeLanguage].toUpperCase();
               break;
             default:
               break;
