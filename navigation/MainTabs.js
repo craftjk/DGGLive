@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { moderateScale } from "react-native-size-matters";
 
 import ScorecardScreen from "../screens/ScorecardScreen";
@@ -86,6 +86,33 @@ function MainTabs() {
           },
           null,
         ],
+        headerRight: () => {
+          if (route.name === "Rules") {
+            return (
+              <View
+                style={{
+                  flexDirection: "row",
+                  marginRight: moderateScale(10),
+                }}
+              >
+                <Ionicons
+                  style={{ marginHorizontal: moderateScale(5) }}
+                  name="information-circle-outline"
+                  size={22}
+                  color={isDarkMode ? Colors.white : Colors.black}
+                />
+                <Ionicons
+                  style={{ marginHorizontal: moderateScale(5) }}
+                  name="search"
+                  size={22}
+                  color={isDarkMode ? Colors.white : Colors.black}
+                />
+              </View>
+            );
+          }
+
+          return null;
+        },
         tabBarLabel: ({ focused, color }) => {
           let label;
 
