@@ -14,6 +14,8 @@ const RulesScreen = () => {
 
   // TODOS
   // Add a touchable around the nav tab to change state
+  // Handle dark mode styling
+  // Handle languages
 
   return (
     <SafeAreaView
