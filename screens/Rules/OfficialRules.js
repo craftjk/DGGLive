@@ -5,6 +5,8 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Pressable,
+  Modal,
 } from "react-native";
 import { moderateScale } from "react-native-size-matters";
 
@@ -14,13 +16,17 @@ import { Ionicons } from "@expo/vector-icons";
 
 const OfficialRules = ({ isDarkMode, activeLanguage }) => {
   const [expandedSections, setExpandedSections] = useState({});
+  const [modalVisible, setModalVisible] = useState(false);
+  const [ModalContent, setModalContent] = useState(null);
+
+  // TODOS hook modal up underlined text, e.g. 804.01D
 
   return (
     <ScrollView>
       {Object.entries(pdgaOfficialRules).map(([sectionHeader, sectionBody]) => {
         const isExpanded = expandedSections[sectionHeader];
         return (
-          <View>
+          <View key={sectionHeader}>
             <TouchableOpacity
               style={{
                 ...styles.headerRowContainer,
@@ -50,6 +56,35 @@ const OfficialRules = ({ isDarkMode, activeLanguage }) => {
           </View>
         );
       })}
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Hello World!</Text>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={styles.textStyle}>Hide Modal</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
+        {/* <Pressable
+          style={[styles.button, styles.buttonOpen]}
+          onPress={() => setModalVisible(true)}
+        >
+          <Text style={styles.textStyle}>Show Modal</Text>
+        </Pressable> */}
+      </View>
     </ScrollView>
   );
 };
