@@ -1,8 +1,17 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { moderateScale } from "react-native-size-matters";
-import Colors from "../constants/Colors";
+import Colors from "../../constants/Colors";
+import OfficialRules from "./OfficialRules";
+import QnA from "./QnA";
+import CompetitionManual from "./CompetitionManual";
 
 const RulesScreen = () => {
   const dispatch = useDispatch();
@@ -13,9 +22,16 @@ const RulesScreen = () => {
   const [activeNavTab, setActiveNavTab] = useState("RULES");
 
   // TODOS
-  // Add a touchable around the nav tab to change state
   // Handle dark mode styling
   // Handle languages
+
+  let MainCmp = OfficialRules;
+
+  if (activeNavTab === "COMPETITION MANUAL") {
+    MainCmp = CompetitionManual;
+  } else if (activeNavTab === "Q&A") {
+    MainCmp = QnA;
+  }
 
   return (
     <SafeAreaView
@@ -31,7 +47,10 @@ const RulesScreen = () => {
         }}
       >
         <View style={styles.rulesNavTab}>
-          <View
+          <TouchableOpacity
+            onPress={() => {
+              setActiveNavTab("RULES");
+            }}
             style={{
               ...styles.navTabSelectWrapper,
               backgroundColor:
@@ -41,10 +60,13 @@ const RulesScreen = () => {
             }}
           >
             <Text style={styles.rulesNavText}>RULES</Text>
-          </View>
+          </TouchableOpacity>
         </View>
         <View style={{ ...styles.rulesNavTab, flex: 3 }}>
-          <View
+          <TouchableOpacity
+            onPress={() => {
+              setActiveNavTab("COMPETITION MANUAL");
+            }}
             style={{
               ...styles.navTabSelectWrapper,
               backgroundColor:
@@ -54,10 +76,13 @@ const RulesScreen = () => {
             }}
           >
             <Text style={styles.rulesNavText}>COMPETITION MANUAL</Text>
-          </View>
+          </TouchableOpacity>
         </View>
         <View style={styles.rulesNavTab}>
-          <View
+          <TouchableOpacity
+            onPress={() => {
+              setActiveNavTab("Q&A");
+            }}
             style={{
               ...styles.navTabSelectWrapper,
               backgroundColor:
@@ -67,10 +92,10 @@ const RulesScreen = () => {
             }}
           >
             <Text style={styles.rulesNavText}>Q&A</Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
-      <Text>Rules Screen</Text>
+      <MainCmp activeLanguage={activeLanguage} isDarkMode={isDarkMode} />
     </SafeAreaView>
   );
 };

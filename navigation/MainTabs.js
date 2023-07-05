@@ -7,7 +7,7 @@ import { moderateScale } from "react-native-size-matters";
 
 import ScorecardScreen from "../screens/ScorecardScreen";
 import LiveScreen from "../screens/LiveScreen";
-import RulesScreen from "../screens/RulesScreen";
+import RulesScreen from "../screens/Rules/RulesScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import Colors from "../constants/Colors";
 

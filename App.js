@@ -34,7 +34,7 @@ export default function App() {
   // In a real application, replace this with your async operation.
   useEffect(() => {
     const loadData = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Wait for 2 seconds
+      await new Promise((resolve) => setTimeout(resolve, 20)); // Wait for 2 seconds
       setLoading(false); // Set loading to false when the operation is complete
     };
 
