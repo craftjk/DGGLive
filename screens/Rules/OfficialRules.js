@@ -21,10 +21,15 @@ const OfficialRules = ({ isDarkMode, activeLanguage }) => {
 
   // TODOS hook modal up underlined text, e.g. 804.01D
 
+  let Cmp;
+
   return (
     <ScrollView>
       {Object.entries(pdgaOfficialRules).map(([sectionHeader, sectionBody]) => {
         const isExpanded = expandedSections[sectionHeader];
+
+        Cmp = pdgaOfficialRules[sectionHeader];
+
         return (
           <View key={sectionHeader}>
             <TouchableOpacity
@@ -39,10 +44,17 @@ const OfficialRules = ({ isDarkMode, activeLanguage }) => {
                 });
               }}
             >
-              <Text style={styles.headerText}>{sectionHeader}</Text>
+              <Text
+                style={{
+                  ...styles.headerText,
+                  color: isDarkMode ? Colors.white : Colors.black,
+                }}
+              >
+                {sectionHeader}
+              </Text>
               <Ionicons
                 size={moderateScale(25)}
-                color={Colors.grayscale[2]}
+                color={isDarkMode ? Colors.grayscale[3] : Colors.grayscale[2]}
                 name={
                   expandedSections[sectionHeader]
                     ? "chevron-up-circle"
@@ -50,9 +62,14 @@ const OfficialRules = ({ isDarkMode, activeLanguage }) => {
                 }
               />
             </TouchableOpacity>
-            {expandedSections[sectionHeader]
-              ? pdgaOfficialRules[sectionHeader]
-              : null}
+            {expandedSections[sectionHeader] ? (
+              <Cmp
+                activeLanguage={activeLanguage}
+                isDarkMode={isDarkMode}
+                setModalContent={setModalContent}
+                setModalVisible={setModalVisible}
+              />
+            ) : null}
           </View>
         );
       })}

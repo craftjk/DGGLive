@@ -22,7 +22,6 @@ const RulesScreen = () => {
   const [activeNavTab, setActiveNavTab] = useState("RULES");
 
   // TODOS
-  // Handle dark mode styling
   // Handle languages
 
   let MainCmp = OfficialRules;
@@ -53,13 +52,23 @@ const RulesScreen = () => {
             }}
             style={{
               ...styles.navTabSelectWrapper,
-              backgroundColor:
-                activeNavTab === "RULES"
-                  ? Colors.grayscale[8]
-                  : Colors.grayscale[7],
+              backgroundColor: isDarkMode
+                ? activeNavTab === "RULES"
+                  ? Colors.grayscale[1]
+                  : Colors.black
+                : activeNavTab === "RULES"
+                ? Colors.grayscale[8]
+                : Colors.grayscale[7],
             }}
           >
-            <Text style={styles.rulesNavText}>RULES</Text>
+            <Text
+              style={{
+                ...styles.rulesNavText,
+                color: isDarkMode ? Colors.white : Colors.black,
+              }}
+            >
+              RULES
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={{ ...styles.rulesNavTab, flex: 3 }}>
@@ -69,13 +78,23 @@ const RulesScreen = () => {
             }}
             style={{
               ...styles.navTabSelectWrapper,
-              backgroundColor:
-                activeNavTab === "COMPETITION MANUAL"
-                  ? Colors.grayscale[8]
-                  : Colors.grayscale[7],
+              backgroundColor: isDarkMode
+                ? activeNavTab === "COMPETITION MANUAL"
+                  ? Colors.grayscale[1]
+                  : Colors.black
+                : activeNavTab === "COMPETITION MANUAL"
+                ? Colors.grayscale[8]
+                : Colors.grayscale[7],
             }}
           >
-            <Text style={styles.rulesNavText}>COMPETITION MANUAL</Text>
+            <Text
+              style={{
+                ...styles.rulesNavText,
+                color: isDarkMode ? Colors.white : Colors.black,
+              }}
+            >
+              COMPETITION MANUAL
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.rulesNavTab}>
@@ -85,13 +104,23 @@ const RulesScreen = () => {
             }}
             style={{
               ...styles.navTabSelectWrapper,
-              backgroundColor:
-                activeNavTab === "Q&A"
-                  ? Colors.grayscale[8]
-                  : Colors.grayscale[7],
+              backgroundColor: isDarkMode
+                ? activeNavTab === "Q&A"
+                  ? Colors.grayscale[1]
+                  : Colors.black
+                : activeNavTab === "Q&A"
+                ? Colors.grayscale[8]
+                : Colors.grayscale[7],
             }}
           >
-            <Text style={styles.rulesNavText}>Q&A</Text>
+            <Text
+              style={{
+                ...styles.rulesNavText,
+                color: isDarkMode ? Colors.white : Colors.black,
+              }}
+            >
+              Q&A
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -123,7 +152,7 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(5),
   },
   rulesNavText: {
-    fontSize: moderateScale(10),
+    fontSize: moderateScale(11),
   },
 });
 
