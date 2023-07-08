@@ -6,7 +6,7 @@ import { Text, View } from "react-native";
 import { moderateScale } from "react-native-size-matters";
 
 import ScorecardScreen from "../screens/ScorecardScreen";
-import LiveScreen from "../screens/LiveScreen";
+import LiveScreen from "../screens/Live/LiveScreen";
 import RulesScreen from "../screens/Rules/RulesScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import Colors from "../constants/Colors";
@@ -46,6 +46,21 @@ function MainTabs() {
             : Colors.grayscale[8],
         },
         headerTitle: ({ children }) => {
+          let title = textMap[children][activeLanguage];
+
+          if (children === "Rules") {
+            if (activeLanguage === "English")
+              title =
+                activeLanguage === "English"
+                  ? "Official Rules"
+                  : "Reglas Oficiales";
+          } else if (children === "Live") {
+            title =
+              activeLanguage === "English" ? "Live Events" : "Eventos en Vivo";
+          }
+
+          if (children === "Rules") console.log("title", title);
+
           return (
             <Text
               style={{
@@ -54,9 +69,7 @@ function MainTabs() {
                 color: isDarkMode ? Colors.white : Colors.black,
               }}
             >
-              {children === "Rules" && activeLanguage === "English" // kc_todo refactor this
-                ? "Official Rules"
-                : textMap[children][activeLanguage]}
+              {title}
             </Text>
           );
         },
