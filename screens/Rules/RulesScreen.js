@@ -41,11 +41,11 @@ const RulesScreen = () => {
     >
       <View
         style={{
-          ...styles.rulesNavContainer,
+          ...styles.navContainer,
           backgroundColor: isDarkMode ? Colors.black : Colors.grayscale[7],
         }}
       >
-        <View style={styles.rulesNavTab}>
+        <View style={styles.navTab}>
           <TouchableOpacity
             onPress={() => {
               setActiveNavTab("RULES");
@@ -67,11 +67,11 @@ const RulesScreen = () => {
                 color: isDarkMode ? Colors.white : Colors.black,
               }}
             >
-              RULES
+              {activeLanguage === "English" ? "RULES" : "REGLAS"}
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={{ ...styles.rulesNavTab, flex: 3 }}>
+        <View style={{ ...styles.navTab, flex: 3 }}>
           <TouchableOpacity
             onPress={() => {
               setActiveNavTab("COMPETITION MANUAL");
@@ -93,11 +93,13 @@ const RulesScreen = () => {
                 color: isDarkMode ? Colors.white : Colors.black,
               }}
             >
-              COMPETITION MANUAL
+              {activeLanguage === "English"
+                ? "COMPETITION MANUAL"
+                : "MANUAL DE COMPETENCIA"}
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.rulesNavTab}>
+        <View style={styles.navTab}>
           <TouchableOpacity
             onPress={() => {
               setActiveNavTab("Q&A");
@@ -131,7 +133,7 @@ const RulesScreen = () => {
 
 const styles = StyleSheet.create({
   screen: { flex: 1 },
-  rulesNavContainer: {
+  navContainer: {
     height: moderateScale(30),
     marginHorizontal: moderateScale(10),
     marginVertical: moderateScale(5),
@@ -139,7 +141,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  rulesNavTab: {
+  navTab: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",

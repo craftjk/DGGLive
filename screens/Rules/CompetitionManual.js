@@ -45,10 +45,17 @@ const CompetitionManual = ({ isDarkMode, activeLanguage }) => {
                   });
                 }}
               >
-                <Text style={styles.headerText}>{sectionHeader}</Text>
+                <Text
+                  style={{
+                    ...styles.headerText,
+                    color: isDarkMode ? Colors.white : Colors.black,
+                  }}
+                >
+                  {sectionHeader}
+                </Text>
                 <Ionicons
                   size={moderateScale(25)}
-                  color={Colors.grayscale[2]}
+                  color={isDarkMode ? Colors.grayscale[3] : Colors.grayscale[2]}
                   name={
                     expandedSections[sectionHeader]
                       ? "chevron-up-circle"

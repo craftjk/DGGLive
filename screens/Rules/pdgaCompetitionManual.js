@@ -50,9 +50,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const expandedIntroduction = () => (
+const expandedIntroduction = ({ isDarkMode, activeLanguage }) => (
   <View style={styles.expandedSectionContainer}>
-    <Text style={styles.plainText}>
+    <Text
+      style={{
+        ...styles.plainText,
+        color: isDarkMode ? Colors.white : Colors.black,
+      }}
+    >
       The PDGA Competition Manual for Disc Golf Events outlines procedures and
       guidelines for PDGA events and is to be used in conjunction with the
       Official Rules of Disc Golf and the Tour Standards document. These
@@ -101,9 +106,14 @@ const expandedIntroduction = () => (
   </View>
 );
 
-const expandedSpiritOfTheGame = () => (
+const expandedSpiritOfTheGame = ({ isDarkMode, activeLanguage }) => (
   <View style={styles.expandedSectionContainer}>
-    <Text style={styles.plainText}>
+    <Text
+      style={{
+        ...styles.plainText,
+        color: isDarkMode ? Colors.white : Colors.black,
+      }}
+    >
       Disc golf is typically played without the supervision of a referee or
       umpire. The game relies on the player to show sportsmanship, integrity,
       consideration for other players, and to abide by the Official Rules of
@@ -112,7 +122,12 @@ const expandedSpiritOfTheGame = () => (
       competitive they may be.
     </Text>
     <Text
-      style={{ ...styles.plainText, fontWeight: "bold", fontStyle: "italic" }}
+      style={{
+        ...styles.plainText,
+        fontWeight: "bold",
+        fontStyle: "italic",
+        color: isDarkMode ? Colors.white : Colors.black,
+      }}
     >
       Make the call. Accept the call. It’s not personal; it’s the rules. That is
       the spirit of the game of disc golf.
@@ -120,7 +135,7 @@ const expandedSpiritOfTheGame = () => (
   </View>
 );
 
-const expandedDiscGolfersCode = () => (
+const expandedDiscGolfersCode = ({ isDarkMode, activeLanguage }) => (
   <View
     style={{
       ...styles.expandedSectionContainer,
@@ -128,28 +143,64 @@ const expandedDiscGolfersCode = () => (
     }}
   >
     <View style={styles.subheaderContainer}>
-      <Text style={styles.subheaderText}>Play Smart</Text>
+      <Text
+        style={{
+          ...styles.subheaderText,
+          color: isDarkMode ? Colors.white : Colors.black,
+        }}
+      >
+        Play Smart
+      </Text>
     </View>
     <View style={styles.indentedTextContainer}>
-      <Text style={styles.plainText}>
+      <Text
+        style={{
+          ...styles.plainText,
+          color: isDarkMode ? Colors.white : Colors.black,
+        }}
+      >
         NEVER throw into a blind area or when players, spectators, pedestrians
         or other facility users are within range. Use a spotter.
       </Text>
     </View>
     <View style={styles.subheaderContainer}>
-      <Text style={styles.subheaderText}>Respect the Course</Text>
+      <Text
+        style={{
+          ...styles.subheaderText,
+          color: isDarkMode ? Colors.white : Colors.black,
+        }}
+      >
+        Respect the Course
+      </Text>
     </View>
     <View style={styles.indentedTextContainer}>
-      <Text style={styles.plainText}>
+      <Text
+        style={{
+          ...styles.plainText,
+          color: isDarkMode ? Colors.white : Colors.black,
+        }}
+      >
         Observe all posted rules. No littering, graffiti, or abuse of equipment
         or flora.
       </Text>
     </View>
     <View style={styles.subheaderContainer}>
-      <Text style={styles.subheaderText}>Represent the Sport</Text>
+      <Text
+        style={{
+          ...styles.subheaderText,
+          color: isDarkMode ? Colors.white : Colors.black,
+        }}
+      >
+        Represent the Sport
+      </Text>
     </View>
     <View style={styles.indentedTextContainer}>
-      <Text style={styles.plainText}>
+      <Text
+        style={{
+          ...styles.plainText,
+          color: isDarkMode ? Colors.white : Colors.black,
+        }}
+      >
         Be positive and responsible. Teach others.
       </Text>
     </View>
