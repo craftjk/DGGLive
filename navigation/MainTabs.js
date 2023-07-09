@@ -59,8 +59,6 @@ function MainTabs() {
               activeLanguage === "English" ? "Live Events" : "Eventos en Vivo";
           }
 
-          if (children === "Rules") console.log("title", title);
-
           return (
             <Text
               style={{
