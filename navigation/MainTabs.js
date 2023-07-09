@@ -6,10 +6,11 @@ import { Text, View } from "react-native";
 import { moderateScale } from "react-native-size-matters";
 
 import ScorecardScreen from "../screens/ScorecardScreen";
-import LiveScreen from "../screens/Live/LiveScreen";
 import RulesScreen from "../screens/Rules/RulesScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import Colors from "../constants/Colors";
+
+import LiveNavigator from "./LiveNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -121,6 +122,23 @@ function MainTabs() {
               </View>
             );
           }
+          if (route.name === "Live") {
+            return (
+              <View
+                style={{
+                  flexDirection: "row",
+                  marginRight: moderateScale(10),
+                }}
+              >
+                <Ionicons
+                  style={{ marginHorizontal: moderateScale(5) }}
+                  name="search"
+                  size={22}
+                  color={isDarkMode ? Colors.white : Colors.black}
+                />
+              </View>
+            );
+          }
 
           return null;
         },
@@ -159,7 +177,7 @@ function MainTabs() {
       })}
     >
       <Tab.Screen name="Scorecard" component={ScorecardScreen} />
-      <Tab.Screen name="Live" component={LiveScreen} />
+      <Tab.Screen name="Live" component={LiveNavigator} />
       <Tab.Screen name="Rules" component={RulesScreen} />
       <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>

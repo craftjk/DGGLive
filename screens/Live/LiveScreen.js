@@ -10,10 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { moderateScale } from "react-native-size-matters";
 
 import Colors from "../../constants/Colors";
-import Tournaments from "./Tournaments";
-import Leagues from "./Leagues";
+import Tournaments from "./TournamentList";
+import Leagues from "./LeagueList";
+import recentEvents from "../../sampleData/recentEvents";
 
-const LiveScreen = () => {
+const LiveScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const isDarkMode = useSelector((state) => state.settings.isDarkMode);
@@ -29,6 +30,9 @@ const LiveScreen = () => {
   if (activeNavTab === "LEAGUES") {
     MainCmp = Leagues;
   }
+
+  const tournamentData = recentEvents.data.Tournaments;
+  const leagueData = recentEvents.data.Leagues;
 
   return (
     <SafeAreaView
@@ -96,7 +100,12 @@ const LiveScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <MainCmp activeLanguage={activeLanguage} isDarkMode={isDarkMode} />
+      <MainCmp
+        navigation={navigation}
+        activeLanguage={activeLanguage}
+        isDarkMode={isDarkMode}
+        eventData={activeNavTab === "LEAGUES" ? leagueData : tournamentData}
+      />
     </SafeAreaView>
   );
 };
