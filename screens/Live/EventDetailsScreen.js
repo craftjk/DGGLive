@@ -1,14 +1,175 @@
-import React from "react";
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { View, Text, StyleSheet, SafeAreaView, Pressable } from "react-native";
+import { moderateScale } from "react-native-size-matters";
+import { Ionicons } from "@expo/vector-icons";
 
-const EventDetails = (props) => {
+import fetchEventResults from "../../sampleData/fetchEventResults";
+import fetchEventTopPlayers from "../../sampleData/fetchEventTopPlayers";
+import fetchPlayerGannonBuhr from "../../sampleData/fetchPlayerGannonBuhr";
+import fetchPlayerAliSmith from "../../sampleData/fetchPlayerAliSmith";
+import Colors from "../../constants/Colors";
+
+const eventData = fetchEventResults.data;
+
+const EventDetails = () => {
+  const isDarkMode = useSelector((state) => state.settings.isDarkMode);
+
+  const [activeDivisionTab, setActiveDivisionTab] = useState("LEADERS");
+
   return (
     <SafeAreaView>
-      <Text>EventDetails</Text>
+      <View style={styles.eventNameHeaderContainer}>
+        <View style={styles.eventTierLabelContainer}>
+          <Text style={styles.eventTierLabelText}>
+            {eventData.FormattedLongTier.toUpperCase()}
+          </Text>
+        </View>
+        <View style={styles.eventNameContainer}>
+          <Text style={styles.eventNameText}>{eventData.Name}</Text>
+        </View>
+        <View style={styles.eventMetadataContainer}>
+          <Ionicons
+            name="calendar-outline"
+            size={moderateScale(13)}
+            color={Colors.primary.main}
+          />
+          <Text
+            style={{
+              ...styles.eventMetadataText,
+              color: isDarkMode ? Colors.white : Colors.grayscale[3],
+            }}
+          >
+            {eventData.DateRange}
+          </Text>
+          <Ionicons
+            name="location-outline"
+            size={moderateScale(13)}
+            color={Colors.primary.main}
+          />
+          <Text
+            style={{
+              ...styles.eventMetadataText,
+              color: isDarkMode ? Colors.white : Colors.grayscale[3],
+            }}
+          >
+            {eventData.LocationShort}
+          </Text>
+        </View>
+      </View>
+      <View style={styles.divisionNavTabContainer}>
+        <Pressable
+          onPress={() => {
+            setActiveDivisionTab("LEADERS");
+          }}
+          style={{
+            ...styles.divisionNavTab,
+            backgroundColor:
+              activeDivisionTab === "LEADERS" ? Colors.grayscale[7] : null,
+            borderBottomWidth: activeDivisionTab === "LEADERS" ? 2 : 1,
+            borderBottomColor:
+              activeDivisionTab === "LEADERS"
+                ? Colors.black
+                : Colors.grayscale[5],
+          }}
+          key={"leadersNavTab"}
+        >
+          <Text
+            style={{
+              ...styles.divisionNavTabText,
+              color: isDarkMode ? Colors.white : Colors.black,
+              fontWeight: activeDivisionTab === "LEADERS" ? "bold" : "normal",
+            }}
+          >
+            LEADERS
+          </Text>
+        </Pressable>
+        {eventData.Divisions.map((d) => {
+          return (
+            <Pressable
+              onPress={() => {
+                setActiveDivisionTab(d.Division);
+              }}
+              style={{
+                ...styles.divisionNavTab,
+                backgroundColor:
+                  activeDivisionTab === d.Division ? Colors.grayscale[7] : null,
+                borderBottomWidth: activeDivisionTab === d.Division ? 2 : 1,
+                borderBottomColor:
+                  activeDivisionTab === d.Division
+                    ? Colors.black
+                    : Colors.grayscale[5],
+              }}
+              key={`${d.Division}NavTab`}
+            >
+              <Text
+                style={{
+                  ...styles.divisionNavTabText,
+                  color: isDarkMode ? Colors.white : Colors.black,
+                  fontWeight:
+                    activeDivisionTab === d.Division ? "bold" : "normal",
+                }}
+              >
+                {d.Division}
+              </Text>
+            </Pressable>
+          );
+        })}
+      </View>
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  eventNameHeaderContainer: {
+    alignItems: "center",
+    marginBottom: moderateScale(30),
+  },
+  eventTierLabelContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: Colors.primary.main,
+    transform: "skewX(15deg)",
+    marginVertical: moderateScale(5),
+  },
+  eventTierLabelText: {
+    color: "white",
+    fontWeight: "bold",
+    paddingHorizontal: moderateScale(15),
+    paddingVertical: moderateScale(2),
+    transform: "skewX(-15deg)",
+  },
+  eventNameContainer: {
+    paddingHorizontal: moderateScale(10),
+    paddingVertical: moderateScale(2),
+    marginBottom: moderateScale(10),
+  },
+  eventNameText: {
+    fontWeight: "bold",
+    fontSize: 28,
+    textAlign: "center",
+  },
+  eventMetadataContainer: {
+    flexDirection: "row",
+  },
+  eventMetadataText: {
+    fontSize: moderateScale(13),
+    marginRight: moderateScale(10),
+    marginLeft: moderateScale(3),
+  },
+  divisionNavTabContainer: {
+    flexDirection: "row",
+    height: moderateScale(38),
+    marginHorizontal: moderateScale(12),
+  },
+  divisionNavTab: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  divisionNavTabText: {
+    fontSize: moderateScale(10),
+  },
+});
 
 export default EventDetails;
