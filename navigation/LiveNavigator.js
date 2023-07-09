@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from "@react-navigation/stack";
+
 import { Ionicons } from "@expo/vector-icons";
 import { Text, View } from "react-native";
 import { moderateScale } from "react-native-size-matters";
