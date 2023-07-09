@@ -19,7 +19,6 @@ function renderTourneyListItem(isDarkMode, navigation, tourney) {
     <TouchableOpacity
       key={tourney.TournID}
       onPress={() => {
-        console.log("navigation", navigation);
         navigation.navigate("Event Details");
       }}
     >
