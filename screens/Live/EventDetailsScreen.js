@@ -16,6 +16,7 @@ const EventDetails = () => {
   const isDarkMode = useSelector((state) => state.settings.isDarkMode);
 
   const [activeDivisionTab, setActiveDivisionTab] = useState("LEADERS");
+  const [activeRound, setActiveRound] = useState(1);
 
   return (
     <SafeAreaView>
@@ -116,6 +117,32 @@ const EventDetails = () => {
           );
         })}
       </View>
+      <View style={styles.roundNavTabContainer}>
+        {Object.values(eventData.RoundsList).map((r) => {
+          return (
+            <Pressable
+              onPress={() => {
+                setActiveRound(r.Number);
+              }}
+              style={{
+                ...styles.roundNavTab,
+                backgroundColor:
+                  activeRound === r.Number ? Colors.grayscale[9] : null,
+              }}
+              key={`${r.Number}RoundNumber`}
+            >
+              <Text
+                style={{
+                  ...styles.roundNavTabText,
+                  color: isDarkMode ? Colors.white : Colors.black,
+                }}
+              >
+                {`RD ${r.Number}`}
+              </Text>
+            </Pressable>
+          );
+        })}
+      </View>
     </SafeAreaView>
   );
 };
@@ -123,6 +150,7 @@ const EventDetails = () => {
 const styles = StyleSheet.create({
   eventNameHeaderContainer: {
     alignItems: "center",
+    marginTop: moderateScale(10),
     marginBottom: moderateScale(30),
   },
   eventTierLabelContainer: {
@@ -169,6 +197,26 @@ const styles = StyleSheet.create({
   },
   divisionNavTabText: {
     fontSize: moderateScale(10),
+  },
+  roundNavTabContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: moderateScale(15),
+    flexDirection: "row",
+    backgroundColor: Colors.grayscale[6],
+    alignSelf: "center",
+    borderRadius: moderateScale(5),
+  },
+  roundNavTab: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: moderateScale(6),
+    paddingHorizontal: moderateScale(12),
+    borderRadius: moderateScale(5),
+    margin: moderateScale(3),
+  },
+  roundNavTabText: {
+    fontSize: moderateScale(12),
   },
 });
 
