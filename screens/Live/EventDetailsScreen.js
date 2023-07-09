@@ -1,11 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 
 const EventDetails = (props) => {
   return (
-    <View>
+    <SafeAreaView>
       <Text>EventDetails</Text>
-    </View>
+    </SafeAreaView>
   );
 };
 

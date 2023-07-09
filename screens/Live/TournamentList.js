@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { moderateScale } from "react-native-size-matters";
 
-import tourneys from "../../sampleData/tourneys";
 import Colors from "../../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import recentEvents from "../../sampleData/recentEvents";
