@@ -46,7 +46,9 @@ const ExpandedPlayerInfoRow = ({ data, imgSrc }) => {
       <View style={styles.expandedRoundSummaryContainer}>
         <View style={styles.expandedRoundSummarySubcontainer}>
           <Text style={styles.expandedRoundSummarySubheaderText}>Total</Text>
-          <Text style={styles.expandedRoundSummaryTotalText}>{data.ToPar}</Text>
+          <Text style={styles.expandedRoundSummaryTotalText}>
+            {playerData.ToPar}
+          </Text>
         </View>
         <View style={{ width: 1, backgroundColor: Colors.grayscale[2] }} />
         <View style={styles.expandedRoundSummarySubcontainer}>
@@ -85,7 +87,9 @@ const ExpandedPlayerInfoRow = ({ data, imgSrc }) => {
               activePlayerRound === 1 ? Colors.grayscale[8] : null,
           }}
         >
-          <Text>ROUND 1</Text>
+          <Text style={{ fontSize: 12, color: Colors.grayscale[2] }}>
+            ROUND 1
+          </Text>
         </Pressable>
         <Pressable
           onPress={() => setActivePlayerRound(2)}
@@ -96,7 +100,9 @@ const ExpandedPlayerInfoRow = ({ data, imgSrc }) => {
               activePlayerRound === 2 ? Colors.grayscale[8] : null,
           }}
         >
-          <Text>ROUND 2</Text>
+          <Text style={{ fontSize: 12, color: Colors.grayscale[2] }}>
+            ROUND 2
+          </Text>
         </Pressable>
         <Pressable
           onPress={() => setActivePlayerRound(3)}
@@ -107,10 +113,83 @@ const ExpandedPlayerInfoRow = ({ data, imgSrc }) => {
               activePlayerRound === 3 ? Colors.grayscale[8] : null,
           }}
         >
-          <Text>ROUND 3</Text>
+          <Text style={{ fontSize: 12, color: Colors.grayscale[2] }}>
+            ROUND 3
+          </Text>
         </Pressable>
       </View>
-      <View style={styles.expandedRoundHeaderContainer}></View>
+      <View style={styles.expandedRoundHeaderContainer}>
+        <View style={styles.roundScoreContainer}>
+          <Text style={styles.roundScoreText}>
+            {playerData.Scores[activePlayerRound - 1].RoundToPar}
+          </Text>
+        </View>
+        <View style={styles.roundRatingContainer}>
+          <View style={styles.smallRatingDiamond}>
+            <Text style={styles.smallRatingText}>R</Text>
+          </View>
+          <Text style={styles.roundRatingText}>
+            {playerData.Scores[activePlayerRound - 1].RoundRating}
+          </Text>
+        </View>
+        <View style={styles.courseInfoContainer}>
+          <Text
+            style={{
+              fontWeight: "bold",
+              fontSize: moderateScale(11),
+              marginRight: moderateScale(4),
+            }}
+          >
+            Par
+          </Text>
+          <Text
+            style={{
+              fontSize: moderateScale(11),
+              color: Colors.grayscale[4],
+              marginRight: moderateScale(8),
+            }}
+          >
+            {playerData.Scores[activePlayerRound - 1].Layout.Par}
+          </Text>
+          <Text
+            style={{
+              fontWeight: "bold",
+              fontSize: moderateScale(11),
+              marginRight: moderateScale(4),
+            }}
+          >
+            Dist
+          </Text>
+          <Text
+            style={{
+              fontStyle: "italic",
+              fontSize: moderateScale(11),
+              color: Colors.grayscale[4],
+              marginRight: moderateScale(8),
+            }}
+          >
+            {playerData.Scores[activePlayerRound - 1].Layout.Length}'
+          </Text>
+          <Text
+            style={{
+              fontWeight: "bold",
+              fontSize: moderateScale(11),
+              marginRight: moderateScale(4),
+            }}
+          >
+            Total
+          </Text>
+          <Text
+            style={{
+              fontWeight: "bold",
+              fontSize: moderateScale(13),
+              color: "green",
+            }}
+          >
+            {playerData.Scores[activePlayerRound - 1].RoundScore}
+          </Text>
+        </View>
+      </View>
       <View style={styles.expandedHoleDetailsContainer}></View>
       <View style={styles.expandedCourseMetadataContainer}></View>
     </View>
@@ -205,6 +284,7 @@ const styles = StyleSheet.create({
   },
   expandedRoundHeaderContainer: {
     flexDirection: "row",
+    height: moderateScale(45),
   },
   expandedHoleDetailsContainer: {
     flexDirection: "row",
@@ -254,6 +334,36 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderBottomColor: Colors.black,
+  },
+  roundScoreContainer: {
+    backgroundColor: "darkgreen",
+    alignItems: "center",
+    justifyContent: "center",
+    width: moderateScale(40),
+  },
+  roundScoreText: {
+    color: Colors.white,
+    fontWeight: "bold",
+    fontSize: moderateScale(13),
+  },
+  roundRatingContainer: {
+    flexDirection: "row",
+    backgroundColor: "green",
+    alignItems: "center",
+    justifyContent: "center",
+    width: moderateScale(60),
+  },
+  roundRatingText: {
+    color: Colors.white,
+    fontWeight: "bold",
+    fontSize: moderateScale(11),
+  },
+  courseInfoContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    padding: moderateScale(12),
+    flex: 1,
   },
 });
 
