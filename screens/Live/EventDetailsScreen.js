@@ -146,7 +146,7 @@ const EventDetails = () => {
           );
         })}
       </View>
-      <ListComponent />
+      <ListComponent activeRound={activeRound} />
     </SafeAreaView>
   );
 };

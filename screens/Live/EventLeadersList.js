@@ -13,6 +13,8 @@ import fetchEventTopPlayers from "../../sampleData/fetchEventTopPlayers";
 import { moderateScale } from "react-native-size-matters";
 import Colors from "../../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
+import round1Results from "../../sampleData/round1Results";
+import round2Results from "../../sampleData/round2Results";
 
 function makeHeaderRow(data) {
   return (
@@ -33,7 +35,7 @@ function makeHeaderRow(data) {
   );
 }
 
-function makeScoreRow(data) {
+function makeScoreRow(data, expandedRows, setExpandedRows) {
   let dataSource = require("../../sampleData/placeholder-person2.jpeg");
 
   if (data.Name === "Gannon Buhr") {
@@ -67,10 +69,22 @@ function makeScoreRow(data) {
         <Text style={styles.rowPlayerNameText}>{data.Name}</Text>
       </View>
       <View style={styles.rowScoreContainer}>
-        <Text style={styles.rowText}>{data.ToPar}</Text>
+        <Text style={styles.rowText}>
+          {data.ParThruRound < 0
+            ? data.ParThruRound
+            : data.ParThruRound === 0
+            ? "E"
+            : "+" + data.ParThruRound}
+        </Text>
       </View>
       <View style={styles.rowScoreContainer}>
-        <Text style={styles.rowText}>{data.RoundtoPar}</Text>
+        <Text style={styles.rowText}>
+          {data.RoundtoPar < 0
+            ? data.RoundtoPar
+            : data.RoundtoPar === 0
+            ? "E"
+            : "+" + data.RoundtoPar}
+        </Text>
       </View>
       <View style={styles.rowScoreContainer}>
         <Text style={styles.rowThruText}>F</Text>
@@ -79,8 +93,14 @@ function makeScoreRow(data) {
   );
 }
 
-const EventLeadersList = () => {
-  const listData = [...fetchEventTopPlayers.data.DivisionStandings];
+const EventLeadersList = ({ activeRound }) => {
+  let listData = [...fetchEventTopPlayers.data.DivisionStandings];
+
+  if (activeRound === 1) {
+    listData = [...round1Results.data.DivisionStandings];
+  } else if (activeRound === 2) {
+    listData = [...round2Results.data.DivisionStandings];
+  }
 
   const [expandedRows, setExpandedRows] = useState({});
 
@@ -92,7 +112,7 @@ const EventLeadersList = () => {
 
     // add rows
     listData[i].scores.forEach((s) => {
-      toRender.push(makeScoreRow(s));
+      toRender.push(makeScoreRow(s, expandedRows, setExpandedRows));
     });
 
     // add full scores btn
