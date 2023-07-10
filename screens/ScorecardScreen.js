@@ -76,9 +76,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "center",
-    marginVertical: moderateScale(15),
+    marginTop: moderateScale(15),
     height: moderateScale(40),
     width: moderateScale(250),
+    marginBottom: moderateScale(180),
   },
 });
 
