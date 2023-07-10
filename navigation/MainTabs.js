@@ -176,7 +176,13 @@ function MainTabs() {
         },
       })}
     >
-      <Tab.Screen name="Scorecard" component={ScorecardScreen} />
+      <Tab.Screen
+        name="Scorecard"
+        component={ScorecardScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Tab.Screen
         name="Live"
         component={LiveNavigator}
