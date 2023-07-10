@@ -6,6 +6,84 @@ import fetchPlayerAliSmith from "../../sampleData/fetchPlayerAliSmith";
 import fetchPlayerGannonBuhr from "../../sampleData/fetchPlayerGannonBuhr";
 import Colors from "../../constants/Colors";
 
+function makeHoleReport(data, holeNumber) {
+  let holeScore =
+    data.HoleScores[holeNumber] - data.Layout.Detail[holeNumber].Par;
+
+  let backgroundColor = null;
+  let color = "black";
+  let borderRadius = 0;
+
+  if (holeScore === -2) {
+    backgroundColor = "darkgreen";
+    color = "white";
+    borderRadius = 100;
+  } else if (holeScore === -1) {
+    backgroundColor = "green";
+    color = "white";
+    borderRadius = 100;
+  } else if (holeScore === 1) {
+    backgroundColor = "lightgray";
+    borderRadius = 4;
+  } else if (holeScore > 1) {
+    backgroundColor = "gray";
+    borderRadius = 4;
+  }
+
+  return (
+    <View
+      style={{ ...styles.scorecardHoleContainer, width: `${(1 / 9) * 100}%` }}
+      key={"hole" + holeNumber}
+    >
+      <Text
+        style={{
+          fontWeight: "bold",
+          fontSize: moderateScale(10),
+          marginVertical: moderateScale(2),
+        }}
+      >
+        {holeNumber}
+      </Text>
+      <Text style={{ fontStyle: "italic", fontSize: moderateScale(8) }}>
+        {data.Layout.Detail[holeNumber].Length}
+      </Text>
+      <Text
+        style={{
+          fontSize: moderateScale(10),
+          marginVertical: moderateScale(2),
+        }}
+      >
+        {data.Layout.Detail[holeNumber].Par}
+      </Text>
+      <View
+        style={{
+          marginBottom: moderateScale(12),
+          backgroundColor,
+          paddingHorizontal: moderateScale(5),
+          paddingVertical: moderateScale(2),
+          borderRadius,
+        }}
+      >
+        <Text
+          style={{ fontSize: moderateScale(11), color, fontWeight: "bold" }}
+        >
+          {data.HoleScores[holeNumber]}
+        </Text>
+      </View>
+    </View>
+  );
+}
+
+function makeScoreReport(roundData) {
+  return (
+    <View style={styles.scorecardContainer}>
+      {Object.keys(roundData.HoleScores).map((hole) =>
+        makeHoleReport(roundData, hole)
+      )}
+    </View>
+  );
+}
+
 const ExpandedPlayerInfoRow = ({ data, imgSrc }) => {
   let playerData = fetchPlayerAliSmith.data;
   if (data.Name === "Gannon Buhr") {
@@ -190,7 +268,9 @@ const ExpandedPlayerInfoRow = ({ data, imgSrc }) => {
           </Text>
         </View>
       </View>
-      <View style={styles.expandedHoleDetailsContainer}></View>
+      <View style={styles.expandedHoleDetailsContainer}>
+        {makeScoreReport(playerData.Scores[activePlayerRound - 1])}
+      </View>
       <View style={styles.expandedCourseMetadataContainer}></View>
     </View>
   );
@@ -364,6 +444,18 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     padding: moderateScale(12),
     flex: 1,
+  },
+  scorecardContainer: {
+    flexDirection: "row",
+    width: "100%",
+    flexWrap: "wrap",
+    backgroundColor: Colors.white,
+    padding: moderateScale(10),
+  },
+  scorecardHoleContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    // width: moderateScale(30),
   },
 });
 
