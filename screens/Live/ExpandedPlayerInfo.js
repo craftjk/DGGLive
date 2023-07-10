@@ -200,6 +200,7 @@ const ExpandedPlayerInfoRow = ({ data, imgSrc }) => {
       <View style={styles.expandedRoundHeaderContainer}>
         <View style={styles.roundScoreContainer}>
           <Text style={styles.roundScoreText}>
+            {playerData.Scores[activePlayerRound - 1].RoundToPar > 0 ? "+" : ""}
             {playerData.Scores[activePlayerRound - 1].RoundToPar}
           </Text>
         </View>
