@@ -5,6 +5,7 @@ import { moderateScale } from "react-native-size-matters";
 import fetchPlayerAliSmith from "../../sampleData/fetchPlayerAliSmith";
 import fetchPlayerGannonBuhr from "../../sampleData/fetchPlayerGannonBuhr";
 import Colors from "../../constants/Colors";
+import { Ionicons } from "@expo/vector-icons";
 
 function makeHoleReport(data, holeNumber) {
   let holeScore =
@@ -271,7 +272,53 @@ const ExpandedPlayerInfoRow = ({ data, imgSrc }) => {
       <View style={styles.expandedHoleDetailsContainer}>
         {makeScoreReport(playerData.Scores[activePlayerRound - 1])}
       </View>
-      <View style={styles.expandedCourseMetadataContainer}></View>
+      <View style={styles.expandedCourseMetadataContainer}>
+        <Ionicons
+          name="map-outline"
+          color={Colors.primary.main}
+          size={moderateScale(11)}
+        />
+        <Text
+          style={{
+            fontSize: moderateScale(10),
+            marginLeft: 5,
+            marginRight: 10,
+            color: Colors.grayscale[3],
+          }}
+        >
+          {playerData.Scores[activePlayerRound - 1].Layout.ShortCourseName}
+        </Text>
+        <Ionicons
+          name="flag-outline"
+          color={Colors.primary.main}
+          size={moderateScale(11)}
+        />
+        <Text
+          style={{
+            fontSize: moderateScale(10),
+            marginLeft: 5,
+            marginRight: 10,
+            color: Colors.grayscale[3],
+          }}
+        >
+          {playerData.Scores[activePlayerRound - 1].Layout.ShortName}
+        </Text>
+        <Ionicons
+          name="basket-outline"
+          color={Colors.primary.main}
+          size={moderateScale(11)}
+        />
+        <Text
+          style={{
+            fontSize: moderateScale(10),
+            marginLeft: 5,
+            marginRight: 10,
+            color: Colors.grayscale[3],
+          }}
+        >
+          {playerData.Scores[activePlayerRound - 1].Layout.Holes}
+        </Text>
+      </View>
     </View>
   );
 };
@@ -371,6 +418,12 @@ const styles = StyleSheet.create({
   },
   expandedCourseMetadataContainer: {
     flexDirection: "row",
+    backgroundColor: "white",
+    paddingBottom: moderateScale(15),
+    justifyContent: "center",
+    alignItems: "center",
+    borderBottomLeftRadius: moderateScale(8),
+    borderBottomRightRadius: moderateScale(8),
   },
   ratingDiamond: {
     marginLeft: moderateScale(8),
@@ -444,6 +497,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     padding: moderateScale(12),
     flex: 1,
+    backgroundColor: Colors.grayscale[8],
   },
   scorecardContainer: {
     flexDirection: "row",
