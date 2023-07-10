@@ -9,6 +9,7 @@ import fetchEventTopPlayers from "../../sampleData/fetchEventTopPlayers";
 import fetchPlayerGannonBuhr from "../../sampleData/fetchPlayerGannonBuhr";
 import fetchPlayerAliSmith from "../../sampleData/fetchPlayerAliSmith";
 import Colors from "../../constants/Colors";
+import EventLeadersList from "./EventLeadersList";
 
 const eventData = fetchEventResults.data;
 
@@ -16,7 +17,9 @@ const EventDetails = () => {
   const isDarkMode = useSelector((state) => state.settings.isDarkMode);
 
   const [activeDivisionTab, setActiveDivisionTab] = useState("LEADERS");
-  const [activeRound, setActiveRound] = useState(1);
+  const [activeRound, setActiveRound] = useState(3);
+
+  let ListComponent = EventLeadersList;
 
   return (
     <SafeAreaView>
@@ -143,6 +146,7 @@ const EventDetails = () => {
           );
         })}
       </View>
+      <ListComponent />
     </SafeAreaView>
   );
 };
@@ -205,18 +209,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: Colors.grayscale[6],
     alignSelf: "center",
-    borderRadius: moderateScale(5),
+    borderRadius: moderateScale(7),
   },
   roundNavTab: {
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: moderateScale(6),
     paddingHorizontal: moderateScale(12),
-    borderRadius: moderateScale(5),
+    borderRadius: moderateScale(7),
     margin: moderateScale(3),
   },
   roundNavTabText: {
-    fontSize: moderateScale(12),
+    fontSize: moderateScale(11),
   },
 });
 
